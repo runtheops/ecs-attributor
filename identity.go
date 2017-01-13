@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io"
 	"net/http"
 
 	"github.com/aws/aws-sdk-go/aws/credentials"
@@ -78,7 +77,7 @@ func NewEcsAgentMetadata() (*EcsAgentMetadata, error) {
 
 	metadata := EcsAgentMetadata{}
 
-	dec := json.NewDecoder(io.Reader(res.Body))
+	dec := json.NewDecoder(res.Body)
 	if err := dec.Decode(&metadata); err != nil {
 		return nil, fmt.Errorf("[ERROR] Failed to unmarshal ECS metadata: %s", err)
 	}
